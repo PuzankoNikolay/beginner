@@ -1,0 +1,11 @@
+n = int(input())
+a = input().split()
+# Нерабочее решение
+#for i in range(len(a)):
+#    if a[i + n] > len(a):
+#        a[i] = a[(i + n) % len(a)]
+
+restored = [0] * len(a)
+for i in range(len(a)):
+    restored[i] = a[(i + n) % len(a)]
+print(restored)
