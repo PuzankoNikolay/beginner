@@ -1,0 +1,17 @@
+komanda = input()
+familia = []
+b = []
+while komanda != 'Stop':
+    if 'Go' in komanda:
+        print('Go')
+        familia.append(komanda)
+        b.append(1)
+        komanda = input()
+    elif 'Delete' in komanda:
+        print('Delete')
+        komanda = input()
+    elif 'Index' in komanda:
+        print('Index')
+        komanda = input()
+print(familia)
+print(b)
