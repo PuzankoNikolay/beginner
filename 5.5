@@ -9,7 +9,7 @@ while komanda != 'Stop':
         b.append(1)
         komanda = input()
     elif 'Delete' in komanda:
-        print('Delete')
+        print('Delete') # Здесь нужно попробовать внести замену в список b срезом. Полагаю, что надо реализовать через цикл for и срез вида b[i:i] = 0
         komanda = input()
         for i in familia:
             if i != komanda:
