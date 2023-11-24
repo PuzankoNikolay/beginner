@@ -1,6 +1,7 @@
 komanda = input()
 familia = []
 b = []
+flag = True
 while komanda != 'Stop':
     if 'Go' in komanda:
         print('Go')
@@ -10,6 +11,11 @@ while komanda != 'Stop':
     elif 'Delete' in komanda:
         print('Delete')
         komanda = input()
+        for i in familia:
+            if i != komanda:
+                flag = False
+                print('В списке нет такой фамилии')
+                break
     elif 'Index' in komanda:
         print('Index')
         komanda = input()
