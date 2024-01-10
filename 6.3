@@ -1,0 +1,28 @@
+gorizontal = []
+vertikal = []
+diagonal1 = []
+diagonal2 = []
+b = 0
+c = 2
+for i in range(3):
+    vvod = input()
+    vvod = vvod.split()
+    gorizontal.append(vvod)
+
+for i in range(3):
+    for k in range(3):
+        vertikal = [[gorizontal[i][k] for i in range(3)] for k in range(3)]
+    diagonal1.append(gorizontal[i][b])
+    diagonal2.append(gorizontal[i][c])
+    b += 1
+    c -= 1
+    if (gorizontal[i] == ['X', 'X', 'X'] or vertikal[i] == ['X', 'X', 'X'] or diagonal1 == ['X', 'X', 'X']
+        or diagonal2 == ['X', 'X', 'X']):
+        print('Крестики')
+        break
+    elif (gorizontal[i] == ['0', '0', '0'] or vertikal[i] == ['0', '0', '0'] or diagonal1 == ['0', '0', '0']
+          or diagonal2 == ['0', '0', '0']):
+        print('Нолики')
+        break
+    else:
+        print('Никто не победил')
