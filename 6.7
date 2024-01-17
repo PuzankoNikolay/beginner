@@ -1,0 +1,19 @@
+gorizontal = [['*', 'X', '*'], ['*', '*', '*'], ['*', '*', '*']]
+pobeda = None
+vertikal = []
+draw = ['*']
+final = 0
+values = [[1 for i in range(3)] for k in range(3)]
+#values = []
+# human = input()
+# print(human)
+print(values)
+for i in range(3):
+    for k in range(3):
+        if gorizontal[i][k] != draw[0]:
+            values[i][k] = -1
+        elif gorizontal[i][k] == draw[0]:
+            values[i][k] = 0
+        elif gorizontal[1][1] == draw[0]:
+            values[1][1] = 1
+print(values)
