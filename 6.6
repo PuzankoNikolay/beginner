@@ -1,5 +1,4 @@
 gorizontal = [['*', '*', '*'], ['*', '*', '*'], ['*', '*', '*']]
-nomer = [[0 for i in range(3)] for k in range(3)]
 pobeda = None
 vertikal = []
 draw = ['*']
@@ -13,52 +12,49 @@ while pobeda is None:
         if human == 'Крестики':
             x, y = [int(i) for i in input().split()]
             gorizontal[x - 1][y - 1] = 'X'
-            nomer[x][y] = 1
-            for i in range(3):
-                for k in range(3):
-                    if [gorizontal[i][k]] == draw:
-                        gorizontal[i][k] = '0'
-                        break
+            nomer[x-1][y-1] = 1
         else:
             for i in range(3):
                 for k in range(3):
-                    if [gorizontal[i][k]] == draw:
-                        stop = False
+                    if gorizontal[i][k] == draw[0]:
                         gorizontal[i][k] = 'X'
+                        stop = True
                         break
+                if stop:
+                    break
         diagonal1 = [gorizontal[0][0], gorizontal[1][1], gorizontal[2][2]]
         diagonal2 = [gorizontal[0][2], gorizontal[1][1], gorizontal[2][0]]
-        if (gorizontal[i] == ['X', 'X', 'X'] or vertikal[i] == ['X', 'X', 'X'] or diagonal1 == ['X', 'X', 'X'] or diagonal2 == ['X', 'X', 'X']):
-            pobeda = 'Победа крестиков'
-            final += 1
-            flag = False
-            break
-        for i in gorizontal:
-            for k in i:
-                print(k, end=' ')
-            print()
-        print()
+        for i in range(3):
+            if (gorizontal[i] == ['X', 'X', 'X'] or [gorizontal[k][i] for k in range(3)] == ['X', 'X', 'X'] or diagonal1 == ['X', 'X', 'X'] or diagonal2 == ['X', 'X', 'X']):
+                pobeda = 'Победа крестиков'
+                final += 1
+                flag = False
+                break
     if hod % 2 == 0:
         if human == 'Нолики':
             for i in range(3):
                 for k in range(3):
-                    if [gorizontal[i][k]] == draw:
-                        gorizontal[i][k] = 'X'
+                    if gorizontal[i][k] == draw[0]:
+                        gorizontal[i][k] = '0'
+                        stop = True
                         break
+                if stop:
+                    break
             x, y = [int(i) for i in input().split()]
             gorizontal[x - 1][y - 1] = '0'
-            nomer[x][y] = -1
         else:
             for i in range(3):
                 for k in range(3):
-                    if [gorizontal[i][k]] == draw:
+                    if gorizontal[i][k] == draw[0]:
                         gorizontal[i][k] = '0'
+                        stop = True
                         break
+                if stop:
+                    break
         diagonal1 = [gorizontal[0][0], gorizontal[1][1], gorizontal[2][2]]
         diagonal2 = [gorizontal[0][2], gorizontal[1][1], gorizontal[2][0]]
-        for i in range(1, 3):
-            if (gorizontal[i] == ['0', '0', '0'] or vertikal[i] == ['0', '0', '0'] or diagonal1 == ['0', '0', '0']
-                    or diagonal2 == ['0', '0', '0']):
+        for i in range(3):
+            if (gorizontal[i] == ['0', '0', '0'] or [gorizontal[k][i] for k in range(3)] == ['0', '0', '0'] or diagonal1 == ['0', '0', '0'] or diagonal2 == ['0', '0', '0']):
                 pobeda = 'Победа ноликов'
                 final += 1
                 flag = False
@@ -71,18 +67,13 @@ while pobeda is None:
     for i in range(3):
         for k in range(3):
             vertikal = [[gorizontal[i][k] for i in range(3)] for k in range(3)]
-            if [gorizontal[i][k]] == draw:
+            if gorizontal[i][k] == draw[0]:
                 flag = False
                 break
     if flag:
         pobeda = 'Ничья'
         final += 1
         break
-    for i in gorizontal:
-        for k in i:
-            print(k, end=' ')
-        print()
-    print()
     hod += 1
 if final == 1:
     for i in gorizontal:
