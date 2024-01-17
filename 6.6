@@ -1,5 +1,4 @@
 gorizontal = [['*', '*', '*'], ['*', '*', '*'], ['*', '*', '*']]
-nomer = [[0 for i in range(3)] for k in range(3)]
 pobeda = None
 vertikal = []
 draw = ['*']
@@ -33,7 +32,13 @@ while pobeda is None:
             final += 1
             flag = False
             break
-    if final == 0:
+    if final == 0 and human == 'Нолики':
+        for i in gorizontal:
+            for k in i:
+                print(k, end=' ')
+            print()
+        print()
+    if final == 0 and hod < 9:
         if human == 'Нолики':
             stop = False
             x, y = [int(i) for i in input().split()]
@@ -50,6 +55,11 @@ while pobeda is None:
                         break
                 if stop:
                     break
+            for i in gorizontal:
+                for k in i:
+                    print(k, end=' ')
+                print()
+            print()
     diagonal1 = [gorizontal[0][0], gorizontal[1][1], gorizontal[2][2]]
     diagonal2 = [gorizontal[0][2], gorizontal[1][1], gorizontal[2][0]]
     for i in range(3):
@@ -59,29 +69,27 @@ while pobeda is None:
             final += 1
             flag = False
             break
-    for i in gorizontal:
-        for k in i:
-            print(k, end=' ')
-        print()
-    print()
-    print(hod)
     for i in range(3):
         for k in range(3):
             vertikal = [[gorizontal[i][k] for i in range(3)] for k in range(3)]
             if gorizontal[i][k] == draw[0]:
                 flag = False
                 break
-    if flag or hod == 9:
+    if hod == 9 and human == 'Нолики':
         stop = False
         for i in range(3):
             for k in range(3):
                 if gorizontal[i][k] == draw[0]:
                     gorizontal[i][k] = 'X'
-        for i in gorizontal:
-            for k in i:
-                print(k, end=' ')
-            print()
-        print()
         pobeda = 'Ничья'
         final += 1
+    if flag:
+        pobeda = 'Ничья'
+        final += 1
+if final == 1:
+    for i in gorizontal:
+        for k in i:
+            print(k, end=' ')
+        print()
+    print()
 print(pobeda)
