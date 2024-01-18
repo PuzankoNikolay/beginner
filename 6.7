@@ -1,19 +1,155 @@
-gorizontal = [['*', 'X', '*'], ['*', '*', '*'], ['*', '*', '*']]
+gorizontal = [['*', '*', '*'], ['*', '*', '*'], ['*', '*', '*']]
 pobeda = None
 vertikal = []
+diagonal1 = []
+diagonal2 = []
 draw = ['*']
 final = 0
+human = input()
+hod = 1
 values = [[1 for i in range(3)] for k in range(3)]
-#values = []
-# human = input()
-# print(human)
-print(values)
+enemy = ['X']
+ally = ['0']
 for i in range(3):
     for k in range(3):
         if gorizontal[i][k] != draw[0]:
             values[i][k] = -1
-        elif gorizontal[i][k] == draw[0]:
+        if gorizontal[i][k] == draw[0]:
             values[i][k] = 0
-        elif gorizontal[1][1] == draw[0]:
+        if gorizontal[1][1] == draw[0]:
             values[1][1] = 1
+while pobeda is None:
+    final = 0
+    flag = True
+    for i in values:
+        for k in i:
+            print(k, end=' ')
+        print()
+    print('до')
+    diagonal1 = [gorizontal[0][0], gorizontal[1][1], gorizontal[2][2]]
+    diagonal2 = [gorizontal[0][2], gorizontal[1][1], gorizontal[2][0]]
+    print('д1', diagonal1, diagonal1.count(ally[0]))
+    print('д2', diagonal2, diagonal2.count(ally[0]))
+    print('в', vertikal, vertikal.count(ally[0]))
+    print('г', gorizontal, gorizontal.count(ally[0]))
+    for i in range(3):
+        for k in range(3):
+            vertikal = [[gorizontal[i][k] for i in range(3)] for k in range(3)]
+            if gorizontal[i][k] != draw[0]:
+                values[i][k] = -1
+            if values[i][k] > -1:
+                if (gorizontal[i].count(draw[0]) == 3 or diagonal1.count(draw[0]) == 3
+                        or diagonal2.count(draw[0]) == 3 or vertikal[i].count(draw[0]) == 3):
+                    values[i][k] += 0
+                    # print('две пустых', values)
+                if (gorizontal[i].count(draw[0]) == 2 and gorizontal[i].count(ally[0]) == 1
+                        or diagonal1.count(draw[0]) == 2 and diagonal1.count(ally[0]) == 1
+                        or diagonal2.count(draw[0]) == 2 and diagonal2.count(ally[0]) == 1
+                        or vertikal[i].count(draw[0]) == 2 and vertikal[i].count(ally[0]) == 1):
+                    values[i][k] += 2
+                    # print('пустая и союз', values)
+                if (gorizontal[i].count(enemy[0]) == 1 and gorizontal[i].count(draw[0]) == 2
+                        or diagonal1.count(enemy[0]) == 1 and diagonal1.count(draw[0]) == 2
+                        or diagonal2.count(enemy[0]) == 1 and diagonal2.count(draw[0]) == 2
+                        or vertikal[i].count(enemy[0]) == 1 and vertikal[i].count(draw[0]) == 2):
+                    values[i][k] += 1
+                    # print('враг и пустая', values)
+                if (gorizontal[i].count(enemy[0]) == 2 or diagonal1.count(enemy) == 2
+                        or diagonal2.count(enemy[0]) == 2 or vertikal[i].count(enemy) == 2):
+                    values[i][k] += 15
+                    # print('два врага', values)
+                if (gorizontal[i].count(ally[0]) == 2 or diagonal1.count(ally[0]) == 2
+                        or diagonal2.count(ally[0]) == 2 or vertikal.count(ally[0]) == 2):
+                    values[i][k] += 100
+                    # print('два союза', values)
+    for i in values:
+        for k in i:
+            print(k, end=' ')
+        print()
+    print('после')
+    if human == 'Крестики':
+        x, y = [int(i) for i in input().split()]
+        gorizontal[x - 1][y - 1] = 'X'
+        hod += 1
+    else:
+        stop = False
+        for i in range(3):
+            for k in range(3):
+                if gorizontal[i][k] == draw[0]:
+                    gorizontal[i][k] = 'X'
+                    stop = True
+                    hod += 1
+                    break
+            if stop:
+                break
+    diagonal1 = [gorizontal[0][0], gorizontal[1][1], gorizontal[2][2]]
+    diagonal2 = [gorizontal[0][2], gorizontal[1][1], gorizontal[2][0]]
+    for i in range(3):
+        if (gorizontal[i] == ['X', 'X', 'X'] or [gorizontal[k][i] for k in range(3)] == ['X', 'X', 'X']
+                or diagonal1 == ['X', 'X', 'X'] or diagonal2 == ['X', 'X', 'X']):
+            pobeda = 'Победа крестиков'
+            final += 1
+            flag = False
+            break
+    if final == 0 and human == 'Нолики':
+        for i in gorizontal:
+            for k in i:
+                print(k, end=' ')
+            print()
+        print()
+    if final == 0 and hod < 9:
+        if human == 'Нолики':
+            stop = False
+            x, y = [int(i) for i in input().split()]
+            gorizontal[x - 1][y - 1] = '0'
+            hod += 1
+        else:
+            stop = False
+            for i in range(3):
+                for k in range(3):
+                    if gorizontal[i][k] == draw[0]:
+                        gorizontal[i][k] = '0'
+                        stop = True
+                        hod += 1
+                        break
+                if stop:
+                    break
+            for i in gorizontal:
+                for k in i:
+                    print(k, end=' ')
+                print()
+            print()
+    diagonal1 = [gorizontal[0][0], gorizontal[1][1], gorizontal[2][2]]
+    diagonal2 = [gorizontal[0][2], gorizontal[1][1], gorizontal[2][0]]
+    for i in range(3):
+        if (gorizontal[i] == ['0', '0', '0'] or [gorizontal[k][i] for k in range(3)] == ['0', '0', '0']
+                or diagonal1 == ['0', '0', '0'] or diagonal2 == ['0', '0', '0']):
+            pobeda = 'Победа ноликов'
+            final += 1
+            flag = False
+            break
+    for i in range(3):
+        for k in range(3):
+            vertikal = [[gorizontal[i][k] for i in range(3)] for k in range(3)]
+            if gorizontal[i][k] == draw[0]:
+                flag = False
+                break
+    if hod == 9 and human == 'Нолики':
+        stop = False
+        for i in range(3):
+            for k in range(3):
+                if gorizontal[i][k] == draw[0]:
+                    gorizontal[i][k] = 'X'
+        pobeda = 'Ничья'
+        final += 1
+    if flag:
+        pobeda = 'Ничья'
+        final += 1
+if final == 1:
+    for i in gorizontal:
+        for k in i:
+            print(k, end=' ')
+        print()
+    print()
+print(pobeda)
 print(values)
