@@ -1,4 +1,4 @@
-gorizontal = [['0', 'X', '0'], ['*', 'X', '*'], ['*', '*', '*']]
+gorizontal = [['X', '*', '*'], ['X', '*', 'X'], ['*', '*', 'X']]
 draw = ['*']
 values = [[1 for i in range(3)] for k in range(3)]
 enemy = ['0']
@@ -27,19 +27,17 @@ vertikal2 = [gorizontal[0][1], gorizontal[1][1], gorizontal[2][1]]
 vertikal3 = [gorizontal[0][2], gorizontal[1][2], gorizontal[2][2]]
 vertikal_s = [vertikal1, vertikal2, vertikal3]
 for i in range(3):
-    i_const += 1
-    k_const += 1
-    s = 0
-    print(vertikal_s[k_const].count(ally[0]))
+    # i_const += 1
+    # k_const += 1
+    # s = 0
+    # print(vertikal_s[k].count(ally[0]))
     for k in range(3):
         if gorizontal[i][k] != draw[0]:
             values[i][k] = -1
         if values[i][k] > -1:
-            if (gorizontal[i].count(ally[0]) == 2 or diagonal1.count(ally[0]) == 2
-                    or diagonal2.count(ally[0]) == 2 or vertikal_s[k_const].count(ally[0]) == 2):
-                s += 1
-                if s == 2:
-                    values[i][k] += 100
+            if (gorizontal[i].count(ally[0]) == 2 or vertikal_s[k].count(ally[0]) == 2):
+                # or diagonal1.count(ally[0]) == 2 or diagonal2.count(ally[0]) == 2
+                values[i][k] += 100
                 # print('два союза', values)
 for i in values:
     for k in i:
